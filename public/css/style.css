@@ -1,0 +1,6 @@
+body{
+  background-color: lightgreen;
+}
+input[type=submit]{
+  background-color: orange;
+  }

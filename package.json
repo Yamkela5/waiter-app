@@ -1,0 +1,20 @@
+{
+  "name": "waiter_webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "waiter-app"
+  },
+  "author": "Yamkela5",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.1",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.11.14"
+  }
+}
