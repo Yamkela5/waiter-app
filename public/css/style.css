@@ -1,6 +1,23 @@
 body{
-  background-color: lightgreen;
+  background-image: url("http://www.interiordesign777.com/wp-content/uploads/2014/03/Modern-white-restaurant-interior-design-with-customer.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-input[type=submit]{
-  background-color: orange;
-  }
+li{
+  list-style: none;
+}
+table{
+  border: solid;
+}
+th {
+  border: solid blue;
+}
+tr{
+  border: solid blue;
+}
+h1 {
+  text-align: center;
+}
+input[type=checkbox]{
+  background-color: grey;
+  display: inline-block;

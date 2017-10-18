@@ -1,9 +1,19 @@
-<h1>Waiter Availability's App</h1>
 
-  <form class="entry" action="" method="post">
+<h1><u>Waiter Availability</u></h1>
+<form class="" method="post" action="">
+  <ul>
+    <li>{{waiterNames}}</li>
+  </ul>
 
-    {{msg}}
-    <br>
-    <br>
-    <button type="submit" name="button">Select days</button>
-  </form>
+  <input type="checkbox" name="days" value="Monday" {{#if monday}} checked {{/if}}>Monday<br>
+  <input type="checkbox" name="days" value="Tuesday"{{#if tuesday}} checked {{/if}}>Tuesday <br>
+  <input type="checkbox" name="days" value="Wednesday"{{#if wednesday}} checked {{/if}}>Wednesday <br>
+  <input type="checkbox" name="days" value="Thursday"{{#if thursday}} checked {{/if}}>Thursday <br>
+  <input type="checkbox" name="days" value="Friday"{{#if friday}} checked {{/if}}>Friday<br>
+  <input type="checkbox" name="days" value="Saturday"{{#if saturday}} checked {{/if}}>Saturday<br>
+  <input type="checkbox" name="days" value="Sunday"{{#if sunday}} checked {{/if}}>Sunday
+  <br></br>
+  <input type="submit" value="Submit" id="button">
+</form>
+<br> {{output}}
+{{msg}}

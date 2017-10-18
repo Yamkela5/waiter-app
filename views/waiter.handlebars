@@ -1,14 +1,65 @@
-<form class="entry" action="" method="post">
-<h1>Please select the day you wish to work on</h1>
+<form class="" method="get" action="/days">
 
-  <input type="checkbox" name="name" value="Sunday">Sunday
-  <input type="checkbox" name="name" value="Monday">Monday
-  <input type="checkbox" name="name" value="Tuesday">Tuesday
-  <input type="checkbox" name="name" value="Wednesday">Wednesday
-  <input type="checkbox" name="name" value="Thursday">Thursday
-  <input type="checkbox" name="name" value="Friday">Friday
-  <input type="checkbox" name="name" value="Saturday">Saturday
-<br>
-<br>
-<button type="submit" name="button">Send days</button>
+  <h1>Daily work routine</h1>
+  <table align="center">
+    <thead>
+      <tr>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+      </tr>
+    </thead>
+    <ul>
+       <td>
+        {{#each monday}}
+          <li>{{this}}</li>
+        {{/each}}
+</td>
+
+      <td>
+        {{#each tuesday}}
+          <li>{{this}}</li>
+        {{/each}}
+      </td>
+
+     <td>
+        {{#each wednesday}}
+          <li>{{this}}</li>
+        {{/each}}
+
+      </td>
+
+        <td>{{#each thursday}}
+          <li>{{this}}</li>
+        {{/each}}
+
+      </td>
+
+      <td>  {{#each friday}}
+          <li>{{this}}</li>
+        {{/each}}
+
+      </td>
+
+
+      <td>  {{#each saturday}}
+          <li>{{this}}</li>
+        {{/each}}
+
+      </td>
+
+<td>
+          {{#each sunday}}
+          <li>{{this}}</li>
+        {{/each}}
+      </td>
+    </ul>
+  </table>
+</form><br>
+<form class="" method="post" action="/reset">
+  <input type="submit" value="RESET" id="reset">
 </form>
