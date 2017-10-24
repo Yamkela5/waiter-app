@@ -8,7 +8,7 @@ mongoose.connect(MongoURL, {
 
 
 var storeWaiters = mongoose.model('storeWaiters', {
-  waiterNames: String,
+  username: String,
   days: Object
  });
 

@@ -1,8 +1,7 @@
-
 <h1><u>Waiter Availability</u></h1>
 <form class="" method="post" action="">
   <ul>
-    <li>{{waiterNames}}</li>
+    <li>{{username}}</li>
   </ul>
 
   <input type="checkbox" name="days" value="Monday" {{#if monday}} checked {{/if}}>Monday<br>
@@ -16,4 +15,4 @@
   <input type="submit" value="Submit" id="button">
 </form>
 <br> {{output}}
-{{msg}}
+{{informText}}

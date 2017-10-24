@@ -1,6 +1,13 @@
 <form class="" method="get" action="/days">
-
-  <h1>Daily work routine</h1>
+  <h1>Key</h1>
+  <table align="center">
+    <tr>
+      <th style="background-color: green;">Enough waiters</th>
+      <th style="background-color: Orange;">Still need waiter(s)</th>
+      <th style="background-color: Red;">Too much waiters</th>
+    </tr>
+  </table><br>
+  <h1>Daily schedule</h1>
   <table align="center">
     <thead>
       <tr>
@@ -14,46 +21,48 @@
       </tr>
     </thead>
     <ul>
-       <td>
+      <td class="{{color1}}">
         {{#each monday}}
-          <li>{{this}}</li>
-        {{/each}}
-</td>
-
-      <td>
-        {{#each tuesday}}
           <li>{{this}}</li>
         {{/each}}
       </td>
 
-     <td>
+      <td class="{{color2}}">
+        {{#each tuesday}}
+          <li>{{this}}</li>
+        {{/each}}
+      </td>
+      <td class="{{color3}}">
+
         {{#each wednesday}}
           <li>{{this}}</li>
         {{/each}}
 
       </td>
+      <td class="{{color4}}">
 
-        <td>{{#each thursday}}
+        {{#each thursday}}
           <li>{{this}}</li>
         {{/each}}
 
       </td>
+      <td class="{{color5}}">
 
-      <td>  {{#each friday}}
+        {{#each friday}}
           <li>{{this}}</li>
         {{/each}}
 
       </td>
+      <td class="{{color6}}">
 
-
-      <td>  {{#each saturday}}
+        {{#each saturday}}
           <li>{{this}}</li>
         {{/each}}
 
       </td>
+      <td class="{{color7}}">
 
-<td>
-          {{#each sunday}}
+        {{#each sunday}}
           <li>{{this}}</li>
         {{/each}}
       </td>

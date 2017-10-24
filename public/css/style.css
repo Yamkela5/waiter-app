@@ -21,3 +21,13 @@ h1 {
 input[type=checkbox]{
   background-color: grey;
   display: inline-block;
+}
+.color1{
+background-color: green;
+}
+.color2{
+background-color: orange;
+}
+.color3{
+background-color: red;
+}

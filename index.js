@@ -1,9 +1,9 @@
-
+"use strict";
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
-var Model = require('./models');
+var shiftModel = require('./models');
 
 app.use(bodyParser.urlencoded({
   extended: false
@@ -14,46 +14,57 @@ app.engine('handlebars', exphbs({
   defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
-var text = '';
-app.get('/waiters/:waiterNames', function(req, res, next) {
-  var waiterNames = req.params.waiterNames;
-  Model.findOne({waiterNames: waiterNames},function(err, ChoosedShift){
+var massage = '';
+app.get('/waiters/:username', function(req, res, next) {
+  var username = req.params.username;
+  shiftModel.findOne({username: username},function(err, waiterSelectedDay){
     if(err){
       return err;
     }else{
-    if(ChoosedShift) {
-      text = 'Please update your days ' + waiterNames;
+    if(waiterSelectedDay) {
+      massage = 'Please update your days ' + username;
   res.render('index', {
-    waiterNames: text,
-    monday: ChoosedShift.days.Monday,
-    tuesday: ChoosedShift.days.Tuesday,
-    wednesday: ChoosedShift.days.Wednesday,
-    thursday: ChoosedShift.days.Thursday,
-    friday: ChoosedShift.days.Friday,
-    saturday: ChoosedShift.days.Saturday,
-    sunday: ChoosedShift.days.Sunday
+    username: massage,
+    monday: waiterSelectedDay.days.Monday,
+    tuesday: waiterSelectedDay.days.Tuesday,
+    wednesday: waiterSelectedDay.days.Wednesday,
+    thursday: waiterSelectedDay.days.Thursday,
+    friday: waiterSelectedDay.days.Friday,
+    saturday: waiterSelectedDay.days.Saturday,
+    sunday: waiterSelectedDay.days.Sunday
   });
 }
 else {
-  text = 'Please select your day(s) ' + waiterNames;
+  massage = 'Please select your day(s) ' + username;
   res.render('index',{
-    waiterNames : text
+    username : massage
   })
 }
 }
 })
 });
 
-app.post('/waiters/:waiterNames', function(req, res) {
-  var output = 'Your shifts has been sucesssful updated!';
-  var shift = "Your shift has been successfully added!";
+function coloringDays(colorDay) {
+  if (colorDay === 4) {
+    return 'color1';
+  } else if (colorDay < 4) {
+    return 'color2';
+  } else {
+    return 'color3';
+  }
+}
+
+app.post('/waiters/:username', function(req, res) {
+  var output = 'Your shifts has been successfully updated';
+  var shift = "Your shift has been successfully added";
   var days = req.body.days;
   var daysObj = {};
-  var waiterNames = req.params.waiterNames;
+  // console.log(days);
+  var username = req.params.username;
   if(!days){
     var text ='Please select atleast one day';
     res.render('index',{
-      msg: text
+      informText: text
     })
     return
   }
@@ -65,8 +76,9 @@ app.post('/waiters/:waiterNames', function(req, res) {
   days.forEach(function(daySelected) {
     daysObj[daySelected] = true
   })
-  Model.findOneAndUpdate({
-      waiterNames: waiterNames
+
+  shiftModel.findOneAndUpdate({
+      username: username
     }, {
       days: daysObj
     },
@@ -75,14 +87,14 @@ app.post('/waiters/:waiterNames', function(req, res) {
         console.log(err);
       } else {
         if (!waiterName) {
-
-          var storingWaitersNames = new Model({
-            waiterNames: waiterNames,
+          var storingWaitersNames = new shiftModel({
+            username: username,
             days: daysObj
           });
+
           storingWaitersNames.save(function(err, waiterName) {
             if (err) {
-              console.log('Error text:' + err);
+              console.log('Error Massage:' + err);
             } else {
               res.render('index', {
                 output: shift,
@@ -112,7 +124,7 @@ app.post('/waiters/:waiterNames', function(req, res) {
     });
 });
 app.get('/days', function(req, res) {
-  Model.find({}, function(err, workingWaiters) {
+  shiftModel.find({}, function(err, avalaibleWaiters) {
     var Monday = [];
     var Tuesday = [];
     var Wednesday = [];
@@ -123,24 +135,24 @@ app.get('/days', function(req, res) {
     if (err) {
       return err;
     } else {
-      for (var i = 0; i < workingWaiters.length; i++) {
-        var day = workingWaiters[i].days;
-        for (var ChosenDay in day) {
+      for (var i = 0; i < avalaibleWaiters.length; i++) {
+        var daysLoop = avalaibleWaiters[i].days;
+        for (var avalaibleDay in daysLoop) {
 
-          if (ChosenDay === 'Monday') {
-            Monday.push(workingWaiters[i].waiterNames)
-          } else if (ChosenDay === 'Tuesday') {
-            Tuesday.push(workingWaiters[i].waiterNames)
-          } else if (ChosenDay === 'Wednesday') {
-            Wednesday.push(workingWaiters[i].waiterNames)
-          } else if (ChosenDay === 'Thursday') {
-            Thursday.push(workingWaiters[i].waiterNames)
-          } else if (ChosenDay === 'Friday') {
-            Friday.push(workingWaiters[i].waiterNames)
-          } else if (ChosenDay === 'Saturday') {
-            Saturday.push(workingWaiters[i].waiterNames)
-          } else if (ChosenDay === 'Sunday') {
-            Sunday.push(workingWaiters[i].waiterNames)
+          if (avalaibleDay === 'Monday') {
+            Monday.push(avalaibleWaiters[i].username)
+          } else if (avalaibleDay === 'Tuesday') {
+            Tuesday.push(avalaibleWaiters[i].username)
+          } else if (avalaibleDay === 'Wednesday') {
+            Wednesday.push(avalaibleWaiters[i].username)
+          } else if (avalaibleDay === 'Thursday') {
+            Thursday.push(avalaibleWaiters[i].username)
+          } else if (avalaibleDay === 'Friday') {
+            Friday.push(avalaibleWaiters[i].username)
+          } else if (avalaibleDay === 'Saturday') {
+            Saturday.push(avalaibleWaiters[i].username)
+          } else if (avalaibleDay === 'Sunday') {
+            Sunday.push(avalaibleWaiters[i].username)
           }
         }
       }
@@ -148,18 +160,24 @@ app.get('/days', function(req, res) {
 
     res.render('waiter', {
       monday: Monday,
+      color1: coloringDays(Monday.length),
       tuesday: Tuesday,
+      color2: coloringDays(Tuesday.length),
       wednesday: Wednesday,
+      color3: coloringDays(Wednesday.length),
       thursday: Thursday,
+      color4: coloringDays(Thursday.length),
       friday: Friday,
+      color5: coloringDays(Friday.length),
       saturday: Saturday,
+      color6: coloringDays(Saturday.length),
       sunday: Sunday,
-
+      color7: coloringDays(Sunday.length)
     });
   });
 })
 app.post('/reset', function(req, res) {
-  Model.remove({}, function(err, remove) {
+  shiftModel.remove({}, function(err, remove) {
     if (err) {
       return err;
     }
